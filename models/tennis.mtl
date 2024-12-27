@@ -1,0 +1,103 @@
+#
+## Alias OBJ Material File
+# Exported from SketchUp, (c) 2000-2012 Trimble Navigation Limited
+
+newmtl Metal_Steel_Textured
+Ka 0.000000 0.000000 0.000000
+Kd 0.415686 0.431373 0.482353
+Ks 0.330000 0.330000 0.330000
+map_Kd tennis/Metal_Steel_Textured.jpg
+
+newmtl Color_G19
+Ka 0.000000 0.000000 0.000000
+Kd 0.239216 0.400000 0.239216
+Ks 0.330000 0.330000 0.330000
+
+newmtl Metal_Aluminum_Anodized3
+Ka 0.000000 0.000000 0.000000
+Kd 0.976471 0.976471 0.941176
+Ks 0.330000 0.330000 0.330000
+map_Kd tennis/Metal_Aluminum_Anodized3.jpg
+
+newmtl Metal_Brass_Ceiling
+Ka 0.000000 0.000000 0.000000
+Kd 0.862745 0.650980 0.474510
+Ks 0.330000 0.330000 0.330000
+map_Kd tennis/Metal_Brass_Ceiling.jpg
+
+newmtl Metal_Aluminum_Anodized2
+Ka 0.000000 0.000000 0.000000
+Kd 0.945098 0.972549 0.964706
+Ks 0.330000 0.330000 0.330000
+map_Kd tennis/Metal_Aluminum_Anodized2.jpg
+
+newmtl Metal_Seamed
+Ka 0.000000 0.000000 0.000000
+Kd 0.462745 0.466667 0.450980
+Ks 0.330000 0.330000 0.330000
+map_Kd tennis/Metal_Seamed.jpg
+
+newmtl Translucent_Glass_Sky_Reflection
+Ka 0.000000 0.000000 0.000000
+Kd 0.894118 0.968627 0.925490
+Ks 0.330000 0.330000 0.330000
+d 0.500000
+map_Kd tennis/Translucent_Glass_Sky_Reflection.jpg
+
+newmtl Metal_Aluminum_Anodized
+Ka 0.000000 0.000000 0.000000
+Kd 0.215686 0.203922 0.203922
+Ks 0.330000 0.330000 0.330000
+map_Kd tennis/Metal_Aluminum_Anodized.jpg
+
+newmtl Metal_Aluminum_Anodized4
+Ka 0.000000 0.000000 0.000000
+Kd 0.972549 0.976471 0.980392
+Ks 0.330000 0.330000 0.330000
+map_Kd tennis/Metal_Aluminum_Anodized4.jpg
+
+newmtl FrontColor
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.330000 0.330000 0.330000
+
+newmtl Translucent_Glass_Safety
+Ka 0.000000 0.000000 0.000000
+Kd 0.886275 0.866667 0.968627
+Ks 0.330000 0.330000 0.330000
+d 0.500000
+map_Kd tennis/Translucent_Glass_Safety.jpg
+
+newmtl _Charcoal_
+Ka 0.000000 0.000000 0.000000
+Kd 0.137255 0.137255 0.137255
+Ks 0.330000 0.330000 0.330000
+
+newmtl _Gray_
+Ka 0.000000 0.000000 0.000000
+Kd 0.501961 0.501961 0.501961
+Ks 0.330000 0.330000 0.330000
+
+newmtl _Snow_
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 0.980392 0.980392
+Ks 0.330000 0.330000 0.330000
+
+newmtl _1
+Ka 0.000000 0.000000 0.000000
+Kd 0.231373 0.384314 0.231373
+Ks 0.330000 0.330000 0.330000
+map_Kd tennis/_1.png
+
+newmtl _30
+Ka 0.000000 0.000000 0.000000
+Kd 0.913725 0.913725 0.913725
+Ks 0.330000 0.330000 0.330000
+d 0.470000
+map_Kd tennis/_30.jpg
+
+newmtl Brick_Red
+Ka 0.000000 0.000000 0.000000
+Kd 0.776471 0.368627 0.368627
+Ks 0.330000 0.330000 0.330000
+

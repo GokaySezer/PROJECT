@@ -1,0 +1,14 @@
+#ui {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+}
+button {
+    display: block;
+    margin: 5px 0;
+    padding: 10px;
+}
