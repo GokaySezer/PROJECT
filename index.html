@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sports Participation Platform</title>
     <link rel="stylesheet" href="/src/style.css">
+    <title>Sports Facilities Survey</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="ui">
@@ -15,5 +17,42 @@
         <button id="change-color">Change Court Color</button>
     </div>
     <script type="module" src="main.js"></script>
+</body>
+<body>
+    <div class="survey-container">
+        <h1>Sports Facilities Feedback Survey</h1>
+        <form id="surveyForm">
+            <label for="facilityExperience">How would you rate your experience with the sports facilities?</label><br>
+            <input type="radio" id="excellent" name="experience" value="Excellent">
+            <label for="excellent">Excellent</label><br>
+            <input type="radio" id="good" name="experience" value="Good">
+            <label for="good">Good</label><br>
+            <input type="radio" id="average" name="experience" value="Average">
+            <label for="average">Average</label><br>
+            <input type="radio" id="poor" name="experience" value="Poor">
+            <label for="poor">Poor</label><br>
+
+            <label for="improvementSuggestions">What improvements would you suggest for the sports facilities?</label><br>
+            <textarea id="improvementSuggestions" name="improvementSuggestions" rows="4" cols="50"></textarea><br><br>
+
+            <label for="facilityAccessibility">How would you rate the accessibility of the sports facilities (e.g., location, transport options)?</label><br>
+            <input type="radio" id="veryGood" name="accessibility" value="Very Good">
+            <label for="veryGood">Very Good</label><br>
+            <input type="radio" id="goodAccess" name="accessibility" value="Good">
+            <label for="goodAccess">Good</label><br>
+            <input type="radio" id="averageAccess" name="accessibility" value="Average">
+            <label for="averageAccess">Average</label><br>
+            <input type="radio" id="poorAccess" name="accessibility" value="Poor">
+            <label for="poorAccess">Poor</label><br>
+
+            <label for="overallSatisfaction">Please rate your overall satisfaction with the sports facilities:</label><br>
+            <input type="range" id="overallSatisfaction" name="overallSatisfaction" min="1" max="5" step="1">
+            <span id="ratingValue">3</span><br><br>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

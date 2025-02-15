@@ -16,12 +16,10 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 
-// Lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
 scene.add(ambientLight);
 
@@ -29,18 +27,15 @@ const sunlight = new THREE.DirectionalLight(0xffffff, 0.5);
 sunlight.position.set(5, 10, 5);
 scene.add(sunlight);
 
-// GLTF Loader
 const loader = new GLTFLoader();
 let currentModel = null;
 
-// Models
 const models = {
     basketball: '/models/scene.gltf',
     tennis: '/models/tenniscourt.gltf',
     bench: '/models/bench.gltf',
 };
 
-// Load Model Function
 function loadModel(path) {
     console.log(`Loading model from: ${path}`);
     if (currentModel) {
@@ -62,7 +57,6 @@ function loadModel(path) {
     );
 }
 
-// Add Draggable Bench
 function addDraggableBench() {
     console.log("Adding bench model...");
     loader.load(
@@ -91,7 +85,6 @@ function addDraggableBench() {
     );
 }
 
-// Event Listeners for Buttons
 document.getElementById('basketball').addEventListener('click', () => loadModel(models.basketball));
 document.getElementById('tennis').addEventListener('click', () => loadModel(models.tennis));
 document.getElementById('add-bench').addEventListener('click', () => addDraggableBench());
@@ -109,14 +102,12 @@ document.getElementById('change-color').addEventListener('click', () => {
     }
 });
 
-// Responsive Resize
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// Animation Loop
 function animate() {
     requestAnimationFrame(animate);
     controls.update();

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Participation Platform</title>
+    
+    <!-- Leaflet for map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="newstyles.css">
+
+    <!-- JavaScript -->
+    <script src="sportdata.js"></script>
+</head>
+<body>
+
+    <!-- UI Buttons -->
+    <div id="ui">
+        <button id="basketball">Basketball Court</button>
+        <button id="tennis">Tennis Court</button>
+        <button id="add-bench">Add Bench</button>
+        <button id="change-color">Change Court Color</button>
+    </div>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Survey Sidebar -->
+    <div class="survey-container">
+        <h1>Sports Facilities Feedback Survey</h1>
+        <div id="facility-info">
+            <p class="facility-name">Click a facility on the map</p>
+        </div>
+        <form id="surveyForm">
+            <label for="facilityExperience">How would you rate your experience?</label>
+            <select id="facilityExperience">
+                <option>Excellent</option>
+                <option>Good</option>
+                <option>Average</option>
+                <option>Poor</option>
+            </select>
+
+            <label for="improvementSuggestions">What improvements would you suggest?</label>
+            <textarea id="improvementSuggestions" rows="4"></textarea>
+
+            <label for="facilityAccessibility">How would you rate the accessibility?</label>
+            <select id="facilityAccessibility">
+                <option>Very Good</option>
+                <option>Good</option>
+                <option>Average</option>
+                <option>Poor</option>
+            </select>
+
+            <label for="overallSatisfaction">Overall satisfaction:</label>
+            <input type="range" id="overallSatisfaction" min="1" max="5" step="1">
+            <span id="ratingValue">3</span>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        var map = L.map('map').setView([48.179688, 11.543522], 12);
+
+        // Tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Adding facilities
+        var sportLayer = L.geoJSON(sportdata, {
+            onEachFeature: function (feature, layer) {
+                var name = feature.properties["ADDRESS.Bezeichnung"] || "No Name";
+                var features = feature.properties["Besondere Angebote"] || "Not Specified";
+                var ageGroup = feature.properties["Altersgruppe"] || "All Ages";
+
+                var popupContent = `<strong>${name}</strong><br>
+                                    Features: ${features}<br>
+                                    Age Group: ${ageGroup}<br>
+                                    <button onclick="openSurvey('${name}')">Survey</button>`;
+
+                layer.bindPopup(popupContent);
+            }
+        }).addTo(map);
+
+        function openSurvey(facilityName) {
+            document.querySelector(".facility-name").innerHTML = facilityName;
+        }
+    </script>
+
+</body>
+</html>
+

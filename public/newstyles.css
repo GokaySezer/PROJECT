@@ -1,0 +1,89 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/* UI Buttons */
+#ui {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 180px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Map */
+#map {
+    flex-grow: 1;
+    height: 100vh;
+}
+
+/* Survey Sidebar */
+.survey-container {
+    width: 30%;
+    height: 100vh;
+    background: #f8f9fa;
+    padding: 20px;
+    box-shadow: -3px 0 10px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+}
+
+h1 {
+    color: #333;
+    font-size: 22px;
+    text-align: center;
+}
+
+.facility-name {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 18px;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+select, textarea, input {
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+    margin-top: 15px;
+    background: #28a745;
+}
+
+button[type="submit"]:hover {
+    background: #218838;
+}
