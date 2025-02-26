@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dublin Sports Facilities</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    
+    <!-- Load the GeoJSON data -->
+    <script src="dublinsports.js"></script>
+
+    <style>
+        #map { position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <script>
+        // Initialize the map centered on Dublin
+        var map = L.map('map').setView([53.350140, -6.266155], 12);
+
+        // Base map layers
+        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var StamenWatercolor = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.{ext}', {
+            minZoom: 1,
+            maxZoom: 16,
+            attribution: '&copy; Stadia Maps &copy; Stamen Design &copy; OpenStreetMap contributors',
+            ext: 'jpg'
+        });
+
+        var StamenTerrain = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_terrain/{z}/{x}/{y}{r}.{ext}', {
+            minZoom: 0,
+            maxZoom: 18,
+            attribution: '&copy; Stadia Maps &copy; Stamen Design &copy; OpenStreetMap contributors',
+            ext: 'png'
+        });
+
+        var baseMaps = {
+            'Open Street Map': osm,
+            'Water Color': StamenWatercolor,
+            'Terrain': StamenTerrain
+        };
+
+        // Define a custom basketball icon
+        var basketballIcon = L.icon({
+            iconUrl: 'basketball-icon.png',
+            iconSize: [32, 32], // Adjust size as needed
+            iconAnchor: [16, 32], // Centered at the bottom
+            popupAnchor: [0, -32] // Adjust popup placement
+        });
+
+        // Define a custom football icon
+        var footballIcon = L.icon({
+            iconUrl: 'football-icon.png', 
+            iconSize: [32, 32], // Adjust size as needed
+            iconAnchor: [16, 32], // Centered at the bottom
+            popupAnchor: [0, -32] // Adjust popup placement
+        });
+
+        // Load GeoJSON data and apply custom markers
+        if (typeof dublinsports !== 'undefined') {
+            var geojsonLayer = L.geoJSON(dublinsports, {
+                pointToLayer: function (feature, latlng) {
+                    if (feature.properties && feature.properties.Title && feature.properties.Title.toLowerCase().includes("basketball")) {
+                        return L.marker(latlng, { icon: basketballIcon }).bindPopup(feature.properties.Title);
+                    }
+                    if (feature.properties && feature.properties.Title && feature.properties.Title.toLowerCase().includes("pitches")) {
+                        return L.marker(latlng, { icon: footballIcon }).bindPopup(feature.properties.Title);
+                    }
+                    return L.marker(latlng).bindPopup(feature.properties.Title);
+                }
+            }).addTo(map);
+        } else {
+            console.error("GeoJSON data not found or not loaded.");
+        }
+
+        // Add layer controls
+        L.control.layers(baseMaps, { "Sports Data": geojsonLayer }).addTo(map);
+
+        // Add search functionality
+        L.Control.geocoder({
+            defaultMarkGeocode: true
+        }).addTo(map);
+    </script>
+</body>
+</html>

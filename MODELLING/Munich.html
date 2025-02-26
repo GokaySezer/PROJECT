@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="MODELLING\leaflet-search-master\dist\leaflet-search.src.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src='munichsportsdata.js'></script>
+    <script src='MODELLING\leaflet-search-master\dist\leaflet-search.src.js'></script>
+    <style>
+        #map { position: absolute; top: 0; bottom: 0; left: 0; right: 0; }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Munich Sports Facilities</title>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        var map = L.map('map').setView([48.179688, 11.543522], 10);
+
+        var osm = L.tileLayer('https://api.maptiler.com/maps/satellite/{z}/{x}/{y}.jpg?key=d07RPADfWAk8t3KPrS02', {
+            attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+        }).addTo(map);
+
+        var baseMaps = {
+            'Open Street Map': osm
+        };
+
+        L.control.layers(baseMaps).addTo(map);
+
+        var basketballIcon = L.icon({
+            iconUrl: 'basketball-icon.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
+        });
+
+        var footballIcon = L.icon({
+            iconUrl: 'football-icon.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
+        });
+
+        var volleyballIcon = L.icon({
+            iconUrl: 'volleyball-icon.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
+        });
+
+        var fitnessIcon = L.icon({
+            iconUrl: 'fitness-icon.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -32]
+        });
+
+        function getIcon(facilityType) {
+            if (!facilityType) return null;
+            var type = facilityType.toLowerCase();
+            if (type.includes("streetball")) return basketballIcon;
+            if (type.includes("Fitnessparcours")) return fitnessIcon;
+            return null; 
+        }
+
+        if (typeof munichsportsdata !== 'undefined') {
+            L.geoJSON(munichsportsdata, {
+                pointToLayer: function (feature, latlng) {
+                    var facilityType = feature.properties?.["Besondere Angebote"] || "";
+                    var icon = getIcon(facilityType);
+
+                    var marker = icon 
+                        ? L.marker(latlng, { icon })  
+                        : L.marker(latlng);          
+
+                    var name = feature.properties?.["ADDRESS.Bezeichnung"] || "No Name";
+                    var features = feature.properties?.["Besondere Angebote"] || "Not Specified";
+                    var ageGroup = feature.properties?.["Altersgruppe"] || "All Ages";
+
+                    var popupContent = `<strong>${name}</strong><br>
+                                        Features: ${features}<br>
+                                        Age Group: ${ageGroup}`;
+
+                    marker.bindPopup(popupContent);
+                    return marker;
+                }
+            }).addTo(map);
+        } else {
+            console.error("GeoJSON data not found or not loaded.");
+        }
+
+        L.Control.geocoder({
+            defaultMarkGeocode: true
+        }).addTo(map);
+
+        const searchLayer = L.geoJSON(munichsportsdata, {
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup(feature.properties.ADDRESS.Bezeichnung);
+            }
+        }).addTo(map);
+
+        const searchControl = new L.Control.Search({
+            layer: searchLayer,
+            propertyName: 'ADDRESS.Bezeichnung'
+        });
+
+        map.addControl(searchControl);
+
+    </script>
+</body>
+</html>
